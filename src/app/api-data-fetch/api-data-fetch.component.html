@@ -1,1 +1,24 @@
-<p>api-data-fetch works!</p>
+<table>
+    <thead>
+      <tr>
+        <th>Fund Name</th>
+        <th>1 Month Change</th>
+        <th>1 Year Change</th>
+        <th>3 Month Change</th>
+        <th>3 Year Change</th>
+        <th>Currency</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let fund of fundList">
+        <td title="{{ fund.fundType }}">{{ fund.fundName }}</td>
+        <td>{{ fund.change1m }}</td>
+        <td>{{ fund.change1y }}</td>
+        <td>{{ fund.change3m }}</td>
+        <td>{{ fund.change3y }}</td>
+        <td>{{ fund.currency }}</td>
+      </tr>
+    </tbody>
+</table>
+
+  
