@@ -1,6 +1,7 @@
 import { Component, OnInit, inject } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Funds } from '../interface/funds';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-api-data-fetch',
@@ -39,5 +40,4 @@ export class APIDataFetchComponent implements OnInit {
       }
     );
   }
-  
 }
