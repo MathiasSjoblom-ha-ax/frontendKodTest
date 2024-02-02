@@ -3,6 +3,67 @@
     padding: 20px;
     font-family: Verdana;
   }
+
+  .searchContainer {
+    align-items: center;
+    position: relative;
+    max-width: 100%;
+  }
+
+  .searchInput {
+    margin-bottom: 10px;
+    font-family: Verdana;
+    font-size: 18px;
+    padding: 5px 10px;
+    width: 20%;
+    padding-left: 35px;
+    outline: none;
+    background: #FFFFFF;
+    color: #000000;
+    border: 2px solid #4D91EB;
+    border-radius: 20px;
+    transition: .3s ease;
+  }
+
+  .searchInput:focus {
+    background: #FFFFFF;
+    border: 2px solid #4D91EB;
+    border-radius: 10px;
+  }
+
+  .searchSVG {
+    position: absolute;
+    left: 10px;
+    fill: #4D91EB;
+    width: 18px;
+    height: 18px;
+    margin-top: 9px;
+  }
+
+  .resetButton {
+    margin-left: 10px;
+    border: 2px solid #4D91EB;
+    background: #ffffff;
+    border-radius: 20px;
+    font-family: Verdana;
+    color: #ffffff;
+    font-size: 20px;
+    padding: 5px 10px 5px 10px;
+  }
+
+  .resetButton:hover {
+    margin-left: 10px;
+    border: 2px solid #4D91EB;
+
+    background: #f5f9ff;
+  }
+
+  .resetSVG {
+    fill: #3498db;
+    margin-bottom: -1px;
+    width: 18px;
+    height: 18px;
+  }
   
   .fundsTable {
     width: 100%;
