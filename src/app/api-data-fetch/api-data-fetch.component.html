@@ -1,12 +1,13 @@
 <div class="fundsContainer">
-    <div class="searchContainer">
-      <svg class="searchSVG" viewBox="0 0 16 16"><path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z"></path></svg>
-      <input class="searchInput" type="text" [(ngModel)]="searchQuery" (keyup)="search()" placeholder="Search funds">
-      <a class="resetButton" (click)="resetSearch($event)">
-        <svg class="resetSVG" fill="#000000" viewBox="0 0 1920 1920"><path d="M960 0v213.333c411.627 0 746.667 334.934 746.667 746.667S1371.627 1706.667 960 1706.667 213.333 1371.733 213.333 960c0-197.013 78.4-382.507 213.334-520.747v254.08H640V106.667H53.333V320h191.04C88.64 494.08 0 720.96 0 960c0 529.28 430.613 960 960 960s960-430.72 960-960S1489.387 0 960 0"></path></svg>
-      </a>
-    </div>
-  <table class="fundsTable">
+  <div class="searchContainer">
+    <svg class="searchSVG" viewBox="0 0 16 16"><path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z"></path></svg>
+    <input class="searchInput" type="text" [(ngModel)]="searchQuery" (keyup)="search()" placeholder="Search funds">
+    <a class="resetButton" (click)="resetSearch($event)">
+      <svg class="resetSVG" fill="#000000" viewBox="0 0 1920 1920"><path d="M960 0v213.333c411.627 0 746.667 334.934 746.667 746.667S1371.627 1706.667 960 1706.667 213.333 1371.733 213.333 960c0-197.013 78.4-382.507 213.334-520.747v254.08H640V106.667H53.333V320h191.04C88.64 494.08 0 720.96 0 960c0 529.28 430.613 960 960 960s960-430.72 960-960S1489.387 0 960 0"></path></svg>
+    </a>
+  </div>
+  <div class="tableContainer">
+    <table class="fundsTable">
       <thead>
         <tr class="fundsUpperTable">
           <th>Fund Name</th>
@@ -18,12 +19,38 @@
       </thead>
       <tbody>
         <tr *ngFor="let fund of searchResults" class="fundsLowerTable">
-          <td title="{{ fund.fundType }}">{{ fund.fundName }}</td>
-          <td class="fundsInfoText" [ngStyle]="{'color': fund.change1m < 0.00 ? 'red' : 'green'}">{{ fund.change1m }} {{ fund.currency }}</td>
-          <td class="fundsInfoText" [ngStyle]="{'color': fund.change1y < 0.00 ? 'red' : 'green'}">{{ fund.change1y }} {{ fund.currency }}</td>
-          <td class="fundsInfoText" [ngStyle]="{'color': fund.change3m < 0.00 ? 'red' : 'green'}">{{ fund.change3m }} {{ fund.currency }}</td>
-          <td class="fundsInfoText" [ngStyle]="{'color': fund.change3y < 0.00 ? 'red' : 'green'}">{{ fund.change3y }} {{ fund.currency }}</td>
+          <td title="{{ fund.fundType }}" (click)="selectFund(fund)">{{ fund.fundName }}</td>
+          <td class="fundsInfoText" [ngStyle]="{'color': fund.change1m < 0.00 ? 'red' : 'green'}" (click)="selectFund(fund)">{{ fund.change1m || 'No info'}} <span *ngIf="fund.change1m">{{ fund.currency }}</span></td>
+          <td class="fundsInfoText" [ngStyle]="{'color': fund.change1y < 0.00 ? 'red' : 'green'}" (click)="selectFund(fund)">{{ fund.change1y || 'No info'}} <span *ngIf="fund.change1y">{{ fund.currency }}</span></td>
+          <td class="fundsInfoText" [ngStyle]="{'color': fund.change3m < 0.00 ? 'red' : 'green'}" (click)="selectFund(fund)">{{ fund.change3m || 'No info'}} <span *ngIf="fund.change3m">{{ fund.currency }}</span></td>
+          <td class="fundsInfoText" [ngStyle]="{'color': fund.change3y < 0.00 ? 'red' : 'green'}" (click)="selectFund(fund)">{{ fund.change3y || 'No info'}} <span *ngIf="fund.change3y">{{ fund.currency }}</span></td>
         </tr>
       </tbody>
-  </table>
+    </table>
+    <div *ngIf="selectedFund" class="moreInfoTable">
+      <h2>{{ selectedFund.fundName }}</h2>
+      <hr/>
+      <h4>Information</h4>
+      <hr/>
+      <h5>Fund company: {{ selectedFund.fundCompany || 'No info' }}</h5>
+      <h5>Fund type: {{ selectedFund.fundType }}</h5>
+      <h5>Rate: {{ selectedFund.rate }} {{ selectedFund.currency }}</h5>
+      <h5>Start value: {{ selectedFund.startValue }} {{ selectedFund.currency }}</h5>
+      <h5>Close price: {{ selectedFund.closePrice }} {{ selectedFund.currency }}</h5>
+      <h5>Year high: {{ selectedFund.yearHigh || 'No info' }} <span *ngIf="selectedFund.yearHigh">{{ selectedFund.currency }}</span></h5>
+      <h5>Year low: {{ selectedFund.yearLow || 'No info' }} <span *ngIf="selectedFund.yearLow">{{ selectedFund.currency }}</span></h5>
+      <h5>Start date: {{ selectedFund.startDate }}</h5>
+      <h5>Latest close price date: {{ selectedFund.latestClosePriceDate }}</h5>
+      <h5>Administrative fee: {{ selectedFund.administrativeFee }}</h5>
+      <hr/>
+      <h4>Permissions</h4>
+      <hr/>
+      <h5>Allowed to buy: {{ selectedFund.permissions.allowedToBuy }}</h5>
+      <h5>Allowed to sell: {{ selectedFund.permissions.allowedToSell }}</h5>
+      <h5>Allowed to swap: {{ selectedFund.permissions.allowedToSwap }}</h5>
+      <h5>Available for monthly saving: {{ selectedFund.availableForMonthlySaving }}</h5>
+      <h5>Allowed for detailed information: {{ selectedFund.permissions.allowedForDetailedInformation }}</h5>
+      <h5>Allowed to trade: {{ selectedFund.permissions.allowedToTrade }}</h5>      
+    </div>
+  </div>
 </div>

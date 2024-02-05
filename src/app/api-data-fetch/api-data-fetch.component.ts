@@ -1,6 +1,7 @@
 import { Component, OnInit, inject } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Funds } from '../interface/funds';
+import { fundsAttributes } from './fundsAttributes';
 import { Observable } from 'rxjs';
 
 @Component({
@@ -15,6 +16,8 @@ export class APIDataFetchComponent implements OnInit {
   searchQuery = '';
   //Variable to store new data from the search
   searchResults: Funds[] = [];
+  //Variable that hold the fund the user clicked on for to show more information about
+  selectedFund: Funds | null = null
 
   httpClient = inject(HttpClient);
 
@@ -24,20 +27,33 @@ export class APIDataFetchComponent implements OnInit {
   }
 
   //Fetches the data from the API and inserts it into fundList
+  //Only inserts the attributes stated in the fundsAttribute file to filter away unnecessary information
   fetchAPI() {
     this.httpClient.get('https://ivarpivar.netlify.app/api').subscribe(
       (res: any) => {
-        this.fundList = res[0].data.map((item: any) => {
-          return {
-            fundName: item.fundName,
-            change1m: item.change1m,
-            change1y: item.change1y,
-            change3m: item.change3m,
-            change3y: item.change3y,
-            currency: item.currency,
-            fundType: item.fundType
-          } as Funds;
+        this.fundList = (res[0].data as any[]).map((item: any) => {
+          let fund: Partial<Funds> = {};
+  
+          //Loop through each attribute in the item
+          for (let key in item) {
+            //If the attribute is in the list of valid properties, add it to the fund
+            if (fundsAttributes.includes(key)) {
+              //If the attribute contains the word Date it will be converted to a date format
+              //en-GB format = day/month/year
+              if (key.includes('Date')) {
+                const date = new Date(item[key]);
+                fund[key as keyof Funds] = new Date(date).toLocaleDateString('en-GB');
+              } else {
+                fund[key as keyof Funds] = item[key];
+              }
+            }            
+          }
+          return fund as Funds;
         });
+        //Sets selectedFund to the first item in fundList to display it at refresh
+        if (this.fundList.length > 0) {
+          this.selectedFund = this.fundList[0];
+        }
         console.log(this.fundList);
         this.search();
       },
@@ -46,7 +62,7 @@ export class APIDataFetchComponent implements OnInit {
       }
     );
   }
-
+  
   //Function to handle the search input and update the searchResult array
   search(): void {
     let query = this.searchQuery;
@@ -67,5 +83,9 @@ export class APIDataFetchComponent implements OnInit {
     this.searchQuery = '';
     this.search();
   }
-  
+
+  //Function to store the fund user clicked on
+  selectFund(fund: Funds) {
+    this.selectedFund = fund;
+  }
 }
