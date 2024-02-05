@@ -1,141 +1,167 @@
+.navigationBar {
+  display: flex;
+  justify-content: space-between;
+  background-color: #f1f1f1;
+  padding: 20px;
+  position: fixed;
+  width: 100%;
+  top: 0;
+  z-index: 1;
+  border-bottom: 1px solid black;
+  font-family: Verdana;
+}
+
+.titleText {
+  margin: 0;
+}
+
+.hrefDiv {
+  display: flex;
+}
+
+.navText {
+  margin: 0;
+  margin-right: 50px;
+  margin-top: 5px;
+}
+
 .fundsContainer {
-    width: 50%;
-    padding: 20px;
-    font-family: Verdana;
-  }
+  width: 50%;
+  padding: 20px;
+  font-family: Verdana;
+  padding-top: 80px;
+}
 
-  .searchContainer {
-    align-items: center;
-    position: relative;
-    max-width: 100%;
-  }
+.searchContainer {
+  align-items: center;
+  position: relative;
+  max-width: 100%;
+}
 
-  .searchInput {
-    margin-bottom: 10px;
-    font-family: Verdana;
-    font-size: 18px;
-    padding: 5px 10px;
-    width: 20%;
-    padding-left: 35px;
-    outline: none;
-    background: #FFFFFF;
-    color: #000000;
-    border: 2px solid #000000;
-    border-radius: 20px;
-    transition: .3s ease;
-  }
+.searchInput {
+  margin-bottom: 10px;
+  font-family: Verdana;
+  font-size: 18px;
+  padding: 5px 10px;
+  width: 20%;
+  padding-left: 35px;
+  outline: none;
+  background: #FFFFFF;
+  color: #000000;
+  border: 2px solid #000000;
+  border-radius: 20px;
+  transition: .3s ease;
+}
 
-  .searchInput:focus {
-    background: #FFFFFF;
-    border: 2px solid #000000;
-    border-radius: 10px;
-  }
+.searchInput:focus {
+  background: #FFFFFF;
+  border: 2px solid #000000;
+  border-radius: 10px;
+}
 
-  .searchSVG {
-    position: absolute;
-    left: 10px;
-    fill: #000000;
-    width: 18px;
-    height: 18px;
-    margin-top: 9px;
-  }
+.searchSVG {
+  position: absolute;
+  left: 10px;
+  fill: #000000;
+  width: 18px;
+  height: 18px;
+  margin-top: 9px;
+}
 
-  .resetButton {
-    margin-left: 10px;
-    border: 2px solid #000000;
-    background: #ffffff;
-    border-radius: 20px;
-    font-family: Verdana;
-    color: #ffffff;
-    font-size: 20px;
-    padding: 5px 10px 5px 10px;
-  }
+.resetButton {
+  margin-left: 10px;
+  border: 2px solid #000000;
+  background: #ffffff;
+  border-radius: 20px;
+  font-family: Verdana;
+  color: #ffffff;
+  font-size: 20px;
+  padding: 5px 10px 5px 10px;
+}
 
-  .resetButton:hover {
-    margin-left: 10px;
-    border: 2px solid #000000;
-    background: rgb(238, 238, 238)
-  }
+.resetButton:hover {
+  margin-left: 10px;
+  border: 2px solid #000000;
+  background: rgb(238, 238, 238)
+}
 
-  .resetSVG {
-    fill: #000000;
-    margin-bottom: -1px;
-    width: 18px;
-    height: 18px;
-  }
+.resetSVG {
+  fill: #000000;
+  margin-bottom: -1px;
+  width: 18px;
+  height: 18px;
+}
 
-  .tableContainer {
-    display: flex;
-    justify-content: space-between;
-  }
+.tableContainer {
+  display: flex;
+  justify-content: space-between;
+}
 
-  .fundsTable {
-    flex: 1 0 80%;
-    width: 100%;
-    border-collapse: collapse;
-    font-family: Arial, sans-serif;
-  }
+.fundsTable {
+  flex: 1 0 80%;
+  width: 100%;
+  border-collapse: collapse;
+  font-family: Arial, sans-serif;
+}
   
-  .fundsTable th {
-    font-family: Verdana;
-    color: #333;
-    text-align: left;
-    padding: 15px;
-    border-top: 1px solid #ddd;
-    border-bottom: 1px solid #ddd;
-  }
+.fundsTable th {
+  font-family: Verdana;
+  color: #333;
+  text-align: left;
+  padding: 15px;
+  border-top: 1px solid #ddd;
+  border-bottom: 1px solid #ddd;
+}
   
-  .fundsTable td {
-    padding: 15px;
-    font-family: Verdana;
-    border-top: 1px solid #ddd;
-    border-bottom: 1px solid #ddd;
-  }
+.fundsTable td {
+  padding: 15px;
+  font-family: Verdana;
+  border-top: 1px solid #ddd;
+  border-bottom: 1px solid #ddd;
+}
   
-  .fundsTable tr:hover {
-    background-color: #F0F0F0;
-  }
+.fundsTable tr:hover {
+  background-color: #dbdbdb;
+}
   
-  .fundsInfoText {
-    font-weight: bold;
-  }
+.fundsInfoText {
+  font-weight: bold;
+}
 
-  .fundsInfoText,
-  .extraInfoText {
-    color: #333;
-  }
-  
-  .moreInfoTable {
-    border: 1px solid #9c9c9c;
-    padding: 8px;
-  }
+.fundsInfoText,
+.extraInfoText {
+  color: #333;
+}
 
-  /*Right table*/
+/*Right table*/
 
-  .moreInfoTable {
-    font-family: Verdana;
-    color: #333;
-    padding: 20px;
-    flex: 1 0 55%;
-    margin-right: 50px;
-    position: absolute;
-    right: 0;
-    width: 450px;
-    border-top: none;
-    border-bottom: none;
-  }
+.moreInfoBar {
+  border: 1px solid #9c9c9c;
+  padding: 8px;
+  font-family: Verdana;
+  color: #333;
+  padding: 20px;
+  flex: 1 0 55%;
+  margin-right: 50px;
+  position: absolute;
+  right: 0;
+  width: 450px;
+  border-top: none;
+  border-bottom: none;
   
-  .moreInfoTable h2 {
-    margin-bottom: 20px;
-    color: #333;
-  }
+}
   
-  .moreInfoTable h4 {
-    margin-top: 20px;
-    margin-bottom: 10px;
-    color: #333;
-  }
+.moreInfoBar h2 {
+  margin-bottom: 10px;
+  color: #333;
+}
   
-  .moreInfoTable h5 {
-    margin-bottom: 5px;
-  }
+.moreInfoBar h4 {
+  margin-top: 20px;
+  margin-bottom: 10px;
+  color: #333;
+}
+  
+.moreInfoBar h5 {
+  margin-bottom: 5px;
+}
