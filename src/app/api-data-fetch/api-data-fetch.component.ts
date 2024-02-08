@@ -2,7 +2,7 @@ import { Component, OnInit, inject } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Funds } from '../interface/funds';
 import { fundsAttributes } from './fundsAttributes';
-import { Observable } from 'rxjs';
+import { Observable, of, catchError, map, first } from 'rxjs';
 
 @Component({
   selector: 'app-api-data-fetch',
@@ -11,27 +11,33 @@ import { Observable } from 'rxjs';
 })
 export class APIDataFetchComponent implements OnInit {
   //List to store all fund from API
-  fundList: Funds[] = [];
+  fundList$: Observable<Funds[]> = of([]);
   //Variable to store the current search input
   searchQuery = '';
   //Variable to store new data from the search
-  searchResults: Funds[] = [];
+  searchResults$: Observable<Funds[]> = of([]);
   //Variable that hold the fund the user clicked on for to show more information about
   selectedFund: Funds | null = null
 
   httpClient = inject(HttpClient);
 
+  //Inits on page load the API fetch, search function and assignes selectedFund to fundLists first fund to display in sidebar (if there are funds found)
   ngOnInit(): void {
     this.fetchAPI();
     this.search();
+    this.fundList$.pipe(first()).subscribe(funds => {
+      if (funds.length > 0) {
+          this.selectedFund = funds[0];
+      }
+  });
   }
 
   //Fetches the data from the API and inserts it into fundList
   //Only inserts the attributes stated in the fundsAttribute file to filter away unnecessary information
   fetchAPI() {
-    this.httpClient.get('https://ivarpivar.netlify.app/api').subscribe(
-      (res: any) => {
-        this.fundList = (res[0].data as any[]).map((item: any) => {
+    this.fundList$ = this.httpClient.get('https://ivarpivar.netlify.app/api').pipe(
+      map((res: any) => {
+        return (res[0].data as any[]).map((item: any) => {
           let fund: Partial<Funds> = {};
   
           //Loop through each attribute in the item
@@ -50,16 +56,11 @@ export class APIDataFetchComponent implements OnInit {
           }
           return fund as Funds;
         });
-        //Sets selectedFund to the first item in fundList to display it at refresh
-        if (this.fundList.length > 0) {
-          this.selectedFund = this.fundList[0];
-        }
-        console.log(this.fundList);
-        this.search();
-      },
-      (error: any) => {
+      }),
+      catchError((error: any) => {
         console.error('API Error: ', error);
-      }
+        return of([]);
+      })
     );
   }
   
@@ -67,13 +68,15 @@ export class APIDataFetchComponent implements OnInit {
   search(): void {
     let query = this.searchQuery;
     if (query) {
-      this.searchResults = this.fundList.filter(fund => 
-        fund.fundName.toLowerCase().includes(query.toLowerCase()) ||
-        fund.currency.toLowerCase().includes(query.toLowerCase()) ||
-        fund.fundType.toLowerCase().includes(query.toLowerCase())
+      this.searchResults$ = this.fundList$.pipe(
+        map(fundList => fundList.filter(fund => 
+          fund.fundName.toLowerCase().includes(query.toLowerCase()) ||
+          fund.currency.toLowerCase().includes(query.toLowerCase()) ||
+          fund.fundType.toLowerCase().includes(query.toLowerCase())
+        ))
       );
     } else {
-      this.searchResults = this.fundList;
+      this.searchResults$ = this.fundList$;
     }
   }
   

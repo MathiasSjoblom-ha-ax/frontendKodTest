@@ -1,3 +1,10 @@
+To start run: ng serve
+Go to: http://localhost:4200/
+
+To start Cypress tests: npm run e2e
+(I ran my tests through Electron)
+
+
 # FrontendKodTest
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 15.2.1.

@@ -9,8 +9,6 @@ describe("Test cases for API application",  () => {
     })
 
     it('Site contains the searched word', () => {
-        cy.visit('http://localhost:4200')
-
         //String to change the text entered into the search input
         const testString = "BlackRock"
     
@@ -19,5 +17,5 @@ describe("Test cases for API application",  () => {
           .should('have.value', testString);
         cy.contains("BlackRock GF Euro Bond Fund A2 EUR");
         cy.contains("BlackRock Global Funds - World Gold A2 USD");
-      });
+    });
 })
