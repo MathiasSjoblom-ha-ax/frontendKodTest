@@ -1,5 +1,6 @@
 To start run: ng serve
 Go to: http://localhost:4200/
+(Preferably on Chrome)
 
 To start Cypress tests: npm run e2e
 (I ran my tests through Electron)
