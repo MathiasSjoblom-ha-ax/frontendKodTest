@@ -24,10 +24,7 @@
   margin-right: 40px;
   margin-top: 10px;
   text-decoration: none;
-}
-
-.navText:hover {
-  background-color: #f7f7f7;
+  color: #000000;
 }
 
 /* Nav drop down */
@@ -83,6 +80,7 @@
 /* Search box */
 
 .searchContainer {
+  margin-top: 5px;
   align-items: center;
   position: relative;
   max-width: 100%;
@@ -119,6 +117,7 @@
 }
 
 .resetButton {
+  cursor: pointer;
   margin-left: 10px;
   border: 2px solid #000000;
   background: #ffffff;
