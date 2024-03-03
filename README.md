@@ -1,4 +1,4 @@
-To start run: ng serve
+To start run: npm i then ng serve
 Go to: http://localhost:4200/
 (Preferably on Chrome)
 
